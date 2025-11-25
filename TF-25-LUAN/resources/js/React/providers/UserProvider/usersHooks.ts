@@ -1,0 +1,27 @@
+import { useContext } from "react";
+import UsersContext from "./UsersContext";
+
+export function useUsers() {
+    const context = useContext(UsersContext);
+    
+    if (context === undefined) {
+        throw new Error('useUsers must be used within a UsersProvider');
+    }
+    
+    return context;
+}
+
+export function useUsersState() {
+    return useUsers().state;
+}
+
+export function useUsersActions() {
+    const { changeData, setCurrentPage, setLoading, setError } = useUsers();
+    
+    return {
+        changeData,
+        setCurrentPage,
+        setLoading,
+        setError
+    };
+}
